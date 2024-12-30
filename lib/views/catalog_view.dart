@@ -1,12 +1,12 @@
-import 'package:ecommerce_app/pages/bloc/ecommerce_bloc.dart';
-import 'package:ecommerce_app/widgets/app_colors.dart';
+import 'package:ecommerce_app/bloc/ecommerce_bloc.dart';
+import 'package:ecommerce_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'add_product_page.dart';
+import 'add_product_view.dart';
 
-class CatalogPage extends StatelessWidget {
-  const CatalogPage({super.key});
+class CatalogView extends StatelessWidget {
+  const CatalogView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class Body extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return const AddProductPage();
+            return const AddProductView();
           }));
         },
         child: const Icon(Icons.add),
@@ -63,7 +63,7 @@ class Body extends StatelessWidget {
                 ),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return AddProductPage(product: catalogProd);
+                    return AddProductView(product: catalogProd);
                   }));
                 },
               );

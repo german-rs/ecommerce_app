@@ -1,14 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:ecommerce_app/model/product_model.dart';
+import 'package:ecommerce_app/models/product_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
+import '../config/env.dart';
 
 part 'ecommerce_event.dart';
 part 'ecommerce_state.dart';
 
-const homeUrl = "https://miercoles-22.firebaseio.com/home_products";
-const cartUrl = "https://miercoles-22.firebaseio.com/agregar_carrito";
+var homeUrl = Env.homeUrl;
+var cartUrl = Env.cartUrl;
 
 class EcommerceBloc extends Bloc<EcommerceEvent, EcommerceState> {
   var uuid = const Uuid();
@@ -104,16 +105,12 @@ class EcommerceBloc extends Bloc<EcommerceEvent, EcommerceState> {
       AddToCartEvent event, Emitter<EcommerceState> emit) async {
     final ProductModel product = event.product;
 
-    // 1. verificar si existe
     final existItemIndex = state.cart.indexWhere((p) => p.id == product.id);
 
     if (existItemIndex >= 0) {
-      // EXISTE!!!
-      // Incrementar la cantidad
       final productItem = state.cart[existItemIndex];
       final newQuantity = productItem.quantity + 1;
 
-      // Actualizar FB
       await dio.patch(
         "$cartUrl/${product.id}.json",
         data: {
@@ -126,7 +123,6 @@ class EcommerceBloc extends Bloc<EcommerceEvent, EcommerceState> {
 
       emit(state.copyWith(cart: updateCart));
     } else {
-      // NO EXISTE!!!
       await dio.put(
         "$cartUrl/${product.id}.json",
         data: {
@@ -150,17 +146,13 @@ class EcommerceBloc extends Bloc<EcommerceEvent, EcommerceState> {
     final newQuantity = product.quantity + event.newQty;
 
     if (newQuantity <= 0) {
-      // Si la cantidad es menor o igual a 0, elimina el producto del carrito
       await dio.delete("$cartUrl/${product.id}.json");
       final updatedCart = state.cart.where((p) => p.id != product.id).toList();
       emit(state.copyWith(cart: updatedCart));
     } else {
-      // Actualiza la cantidad en Firebase
       await dio.patch("$cartUrl/${product.id}.json", data: {
         "quantity": newQuantity,
       });
-
-      // Actualiza la cantidad en el estado
       final updatedCart = [
         for (var p in state.cart)
           if (p.id == product.id) p.copyWith(quantity: newQuantity) else p
@@ -241,14 +233,12 @@ class EcommerceBloc extends Bloc<EcommerceEvent, EcommerceState> {
       UpdateCatalogProductEvent event, Emitter<EcommerceState> emit) async {
     final product = event.product;
 
-    // Actualizar el producto en Firebase
     await dio.put("$homeUrl/${product.id}.json", data: {
       "description": product.name,
       "image_url": product.imageUrl,
       "price": product.price,
     });
 
-    // Actualizar el producto en el estado
     final updatedProducts = [
       for (var p in state.catalogProducts)
         if (p.id == product.id) product else p
@@ -261,10 +251,8 @@ class EcommerceBloc extends Bloc<EcommerceEvent, EcommerceState> {
       DeleteCatalogProductEvent event, Emitter<EcommerceState> emit) async {
     final product = event.product;
 
-    // Eliminar el producto en Firebase
     await dio.delete("$homeUrl/${product.id}.json");
 
-    // Eliminar el producto en el estado
     final updatedProducts =
         state.catalogProducts.where((p) => p.id != product.id).toList();
 
