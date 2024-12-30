@@ -3,7 +3,7 @@
 ## Proyecto de E-commerce
 
 ### Descripción
-Este proyecto es una aplicación de e-commerce desarrollada utilizando Flutter. La aplicación permite a los usuarios explorar un catálogo de productos, agregar artículos a su carrito y proceder al pago. La arquitectura de la aplicación se basa en el patrón BLoC (Business Logic Component) para gestionar el estado de la aplicación de manera eficiente y en MVVM (Model-View-ViewModel) para una clara separación de las responsabilidades.
+Este proyecto es una aplicación de e-commerce desarrollada utilizando Flutter. La aplicación permite a los usuarios explorar un catálogo de productos y agregar artículos a su carrito. La arquitectura de la aplicación se basa en el patrón BLoC (Business Logic Component) para gestionar el estado de la aplicación de manera eficiente y en MVVM (Model-View-ViewModel) para una clara separación de las responsabilidades.
 
 ### Características
 - **Gestión de Estado con BLoC:** La aplicación utiliza BLoC para gestionar el estado de manera eficiente. Los módulos clave de la aplicación, como `EcommerceBloc`, `EcommerceState`, y `EcommerceEvent`, manejan eventos y estados específicos de cada funcionalidad.
@@ -11,7 +11,6 @@ Este proyecto es una aplicación de e-commerce desarrollada utilizando Flutter. 
 - **Integración con API:** La aplicación se conecta a una API externa utilizando Dio para obtener los datos de los productos y actualizaciones en tiempo real.
 - **Interfaz de Usuario Amigable:** La UI está diseñada con Flutter, proporcionando una experiencia de usuario fluida y moderna. Utilizamos widgets personalizados como `AppPrimaryButton` y `ProductWidget` para asegurar una estética consistente.
 - **Funcionalidades Completas de E-commerce:** Los usuarios pueden navegar por el catálogo de productos, ver detalles de cada producto, agregar productos al carrito y proceder al proceso de compra.
-- **Gestión de Carrito:** La lógica de negocio para el manejo del carrito de compras está encapsulada en el `CartBloc`, permitiendo añadir y eliminar productos del carrito de forma eficiente.
 
 ### Estructura del Proyecto
 El proyecto está organizado de la siguiente manera:
@@ -54,6 +53,7 @@ lib/
 - **Dio:** Librería para realizar solicitudes HTTP.
 - **BLoC:** Gestión del estado con el patrón BLoC.
 - **MVVM:** Arquitectura basada en el patrón MVVM.
+- **Firebase:** Utiliza Firebase Realtime Database para la gestión de datos en tiempo real.
 
 
 
