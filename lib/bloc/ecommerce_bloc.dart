@@ -2,14 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:ecommerce_app/models/product_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:uuid/uuid.dart';
-import '../config/env.dart';
 
 part 'ecommerce_event.dart';
 part 'ecommerce_state.dart';
 
-var homeUrl = Env.homeUrl;
-var cartUrl = Env.cartUrl;
+var homeUrl = dotenv.env['FIREBASE_HOME_URL'] ?? '';
+var cartUrl = dotenv.env['FIREBASE_CART_URL'] ?? '';
 
 class EcommerceBloc extends Bloc<EcommerceEvent, EcommerceState> {
   var uuid = const Uuid();
