@@ -1,6 +1,6 @@
-# Ecommerce App
+# Ecommerce App 📱 
 
-#### Se creo esta Aplicación siguiendo este [diseño.](https://dribbble.com/shots/22831990-Ecommerce-App-Concept)
+#### Se creo esta aplicación siguiendo este [diseño.](https://dribbble.com/shots/22831990-Ecommerce-App-Concept)
 
 ### Descripción
 Este proyecto es una aplicación de e-commerce desarrollada utilizando Flutter. La aplicación permite a los usuarios explorar un catálogo de productos y agregar artículos a su carrito. La arquitectura de la aplicación se basa en el patrón BLoC (Business Logic Component) para gestionar el estado de la aplicación de manera eficiente y en MVVM (Model-View-ViewModel) para una clara separación de las responsabilidades.
